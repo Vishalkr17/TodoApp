@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import './App.css'
 import TodoList from "./TodoList";
-
+import axios from "axios";
+import AddTodo from "./AddTodo";
+import 'tachyons';
 
 /// hook
 function App() {
@@ -27,21 +29,25 @@ useEffect(() => {
     
   }, []);
 
-  const handleDelete = (id) => {
-    fetch(`http://localhost:3000/todos/${id}`, {
-      method: "DELETE"
-    })
-    .then(response => response.json())
-    .then(data => setTodos(data))
+  const handleDelete = async(todoId) => {
+    await axios.delete(`http://localhost:3000/todos/${todoId}`);
+    const response = await axios.get("http://localhost:3000/todos");
+    const data = response.data;
+    setTodos(data);
   };
 
   return (
     <div>
-      <h1>Easy Todo App</h1>
-      <input type="text" />
+      
+      <div className="tc">
+        <h1>TodoRobots </h1>
+        <AddTodo />
+      </div>
+
       <div>
         <TodoList todos={todos} onDelete={handleDelete} />
       </div>
+
     </div>
   );
 }
