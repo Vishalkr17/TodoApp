@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
+import { Routes, Route } from 'react-router-dom';
 import './App.css'
 import TodoList from "./TodoList";
 import axios from "axios";
 import AddTodo from "./AddTodo";
+import EditTodo from "./EditTodo";
 import 'tachyons';
 
 /// hook
@@ -25,7 +27,7 @@ useEffect(() => {
           setTodos(data);
         })
       });
-    }, 1000)
+    }, 10000)
     
   }, []);
 
@@ -38,15 +40,30 @@ useEffect(() => {
 
   return (
     <div>
-      
+
       <div className="tc">
         <h1>TodoRobots </h1>
-        <AddTodo />
       </div>
 
-      <div>
-        <TodoList todos={todos} onDelete={handleDelete} />
-      </div>
+      <Routes>
+      <Route path="/todos" element={
+        <>
+        
+        <div>
+          <AddTodo />
+        </div>
+
+        <div>
+          <TodoList todos={todos} onDelete={handleDelete} />
+        </div>
+
+        </>
+      } />
+
+    
+        <Route path="/todos/:todosId" element={<EditTodo  todos={todos} setTodos={setTodos} />} />
+      </Routes>
+
 
     </div>
   );

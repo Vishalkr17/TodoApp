@@ -1,4 +1,5 @@
 import { Card, CardContent, Typography, Button, CardActions } from "@mui/material";
+import { useNavigate } from 'react-router-dom';
 
 function TodoList({ todos, onDelete }) {
     return (
@@ -11,6 +12,7 @@ function TodoList({ todos, onDelete }) {
   }
 
   function TodoItem({ todo, onDelete }) {
+    const navigate = useNavigate();
     return (
       <div>
          <div key={todo.id} className="br3 ma2 grow bw2 shadow-5">
@@ -38,14 +40,18 @@ function TodoList({ todos, onDelete }) {
               >
                 Delete
               </Button>
-      
+
               <Button
-                variant="contained"
-                size="large"
-                onClick={() => onEdit(todo.id)}
-              >
-                Edit
+                  variant="contained"
+                  size="large"
+                  onClick={() => {
+                    navigate("/todos/" + todo.id);
+                  }}
+                >
+                  Edit
               </Button>
+
+
             </CardActions>
 
         </Card>
