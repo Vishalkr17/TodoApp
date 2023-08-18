@@ -5,8 +5,7 @@ import { useParams } from "react-router-dom";
 
 function EditTodo() {
     let {todosId} = useParams();
-    console.log("todosId:", todosId);
-    const [todo, setTodo] = useState(null);
+    const [todo, setTodo] = useState("");
     
     useEffect(() => {
         axios.get(`http://localhost:3000/todos/${todosId}`,{
@@ -32,7 +31,7 @@ function EditTodo() {
 
     function UpdateCard({todo}) {
 
-        const [title,setTitle] = useState(todo.title)
+        const [title,setTitle] = useState(todo.title);
         const [description, setDescription] = useState(todo.description);
 
         return  <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", alignItems: "center" }}>
@@ -67,11 +66,9 @@ function EditTodo() {
                         await axios.put(`http://localhost:3000/todos/${todosId}`, {
                             title: title,
                             description: description
-
                         });
                         alert("Todo updated successfully");
-                    }
-                    
+                    } 
                 }
                     >Update Todo</Button>
                 </CardActions>
