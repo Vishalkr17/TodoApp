@@ -6,6 +6,7 @@ import axios from "axios";
 import AddTodo from "./AddTodo";
 import EditTodo from "./EditTodo";
 import 'tachyons';
+import AppBar  from "./Appbar";
 
 /// hook
 function App() {
@@ -42,11 +43,8 @@ useEffect(() => {
 
   return (
     <div>
-
-      <div className="tc">
-        <h1>TodoRobots </h1>
-      </div>
-
+   
+      <AppBar />
       <Routes>
       <Route path="/todos" element={
         <>

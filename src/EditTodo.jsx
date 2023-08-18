@@ -3,6 +3,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
+
 function EditTodo() {
     let {todosId} = useParams();
     const [todo, setTodo] = useState(null);
@@ -12,7 +13,6 @@ function EditTodo() {
           const res = await axios.get(
             `http://localhost:3000/todos/${todosId}`
           );
-          console.log(res);
           setTodo(res.data);
         };
     
@@ -27,9 +27,11 @@ function EditTodo() {
          <UpdateCard todo={todo} todosId={todosId} />
     </div>
 
+
 }
 
     function UpdateCard({todo, todosId}) {
+
         if (!todo) {
             return (
                 <div style={{ display: "flex", justifyContent: "center" }}>

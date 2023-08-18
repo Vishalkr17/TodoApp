@@ -20,7 +20,8 @@ function TodoList({ todos, onDelete }) {
           <Card style={{ width: 300, padding: 8, backgroundColor: "#9eebcf" }}>
             
             <CardContent>
-              
+              <img src={`https://robohash.org/${todo.title}?100x100`} alt='robots' />
+
               <Typography textAlign="center" variant="h6" fontWeight={700}>
                 {todo.title}
               </Typography>
