@@ -5,40 +5,48 @@ import { useParams } from "react-router-dom";
 
 function EditTodo() {
     let {todosId} = useParams();
-    const [todo, setTodo] = useState("");
+    const [todo, setTodo] = useState(null);
     
     useEffect(() => {
-        axios.get(`http://localhost:3000/todos/${todosId}`,{
-            method: "GET",
-        }).then(res => 
-            {
-                console.log("Todo response:", res.data);
-                setTodo(res.data.todo)
-            })
-    }, []);
+        const getData = async () => {
+          const res = await axios.get(
+            `http://localhost:3000/todos/${todosId}`
+          );
+          console.log(res);
+          setTodo(res.data);
+        };
+    
+        if (!todo) {
+          getData();
+        }
+    
+      }, []);
 
-    if(!todo){
-        return <div style={{display: "flex", justifyContent: "center"}}>
-              <CircularProgress />
-        </div>
-    }
-
+     
     return <div className="tc">
          <UpdateCard todo={todo} todosId={todosId} />
     </div>
 
 }
 
-    function UpdateCard({todo}) {
+    function UpdateCard({todo, todosId}) {
+        if (!todo) {
+            return (
+                <div style={{ display: "flex", justifyContent: "center" }}>
+                    <CircularProgress />
+                </div>
+            );
+        }
 
-        const [title,setTitle] = useState(todo.title);
-        const [description, setDescription] = useState(todo.description);
+        const [title,setTitle] = useState(todo.title || "");
+        const [description, setDescription] = useState(todo.description || "");
 
         return  <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", alignItems: "center" }}>
         <div className='tc br3 ma2 grow bw2 shadow-5'>
             <Card style={{ width: 300,  minHeight: 200, padding: 8 , backgroundColor:"#9eebcf"}} >
                 <div>
                 <TextField
+                    value ={title}
                     onChange={(e) => {
                         setTitle(e.target.value);
                     }}
@@ -49,6 +57,7 @@ function EditTodo() {
                 /> 
 
                 <TextField
+                    value={description}
                     onChange={(e) => {
                         setDescription(e.target.value);
                     }}

@@ -27,7 +27,7 @@ useEffect(() => {
           setTodos(data);
         })
       });
-    }, 10000)
+    }, 1000)
     
   }, []);
 
@@ -37,6 +37,8 @@ useEffect(() => {
     const data = response.data;
     setTodos(data);
   };
+
+  
 
   return (
     <div>
